@@ -1,0 +1,286 @@
+{
+  "trip": {
+    "name": "2026 Pinehurst Open",
+    "subtitle": "Edit this in Admin \u2192 Trip Settings",
+    "year": "2026"
+  },
+  "teams": [
+    {
+      "id": "t1",
+      "name": "Team One",
+      "color": "#2f5233"
+    },
+    {
+      "id": "t2",
+      "name": "Team Two",
+      "color": "#8a5a2b"
+    }
+  ],
+  "players": [
+    {
+      "id": "p1",
+      "name": "Player 1",
+      "handicap": 12,
+      "teamId": "t1"
+    },
+    {
+      "id": "p2",
+      "name": "Player 2",
+      "handicap": 8,
+      "teamId": "t1"
+    },
+    {
+      "id": "p3",
+      "name": "Player 3",
+      "handicap": 15,
+      "teamId": "t1"
+    },
+    {
+      "id": "p4",
+      "name": "Player 4",
+      "handicap": 10,
+      "teamId": "t1"
+    },
+    {
+      "id": "p5",
+      "name": "Player 5",
+      "handicap": 20,
+      "teamId": "t1"
+    },
+    {
+      "id": "p6",
+      "name": "Player 6",
+      "handicap": 6,
+      "teamId": "t1"
+    },
+    {
+      "id": "p7",
+      "name": "Player 7",
+      "handicap": 14,
+      "teamId": "t2"
+    },
+    {
+      "id": "p8",
+      "name": "Player 8",
+      "handicap": 9,
+      "teamId": "t2"
+    },
+    {
+      "id": "p9",
+      "name": "Player 9",
+      "handicap": 18,
+      "teamId": "t2"
+    },
+    {
+      "id": "p10",
+      "name": "Player 10",
+      "handicap": 11,
+      "teamId": "t2"
+    },
+    {
+      "id": "p11",
+      "name": "Player 11",
+      "handicap": 22,
+      "teamId": "t2"
+    },
+    {
+      "id": "p12",
+      "name": "Player 12",
+      "handicap": 7,
+      "teamId": "t2"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "r1",
+      "name": "Round 1",
+      "course": "",
+      "date": "",
+      "format": "fourball",
+      "formatLabel": "Fourball (Better Ball) Match Play",
+      "matches": [
+        {
+          "id": "m1",
+          "teamAPlayers": [
+            "p1",
+            "p2"
+          ],
+          "teamBPlayers": [
+            "p7",
+            "p8"
+          ]
+        },
+        {
+          "id": "m2",
+          "teamAPlayers": [
+            "p3",
+            "p4"
+          ],
+          "teamBPlayers": [
+            "p9",
+            "p10"
+          ]
+        },
+        {
+          "id": "m3",
+          "teamAPlayers": [
+            "p5",
+            "p6"
+          ],
+          "teamBPlayers": [
+            "p11",
+            "p12"
+          ]
+        }
+      ],
+      "teamResults": [],
+      "individualScores": [],
+      "winner": null,
+      "contests": []
+    },
+    {
+      "id": "r2",
+      "name": "Round 2",
+      "course": "",
+      "date": "",
+      "format": "foursomes",
+      "formatLabel": "Foursomes Match Play",
+      "matches": [
+        {
+          "id": "m2_1",
+          "teamAPlayers": [
+            "p1",
+            "p2"
+          ],
+          "teamBPlayers": [
+            "p7",
+            "p8"
+          ]
+        },
+        {
+          "id": "m2_2",
+          "teamAPlayers": [
+            "p3",
+            "p4"
+          ],
+          "teamBPlayers": [
+            "p9",
+            "p10"
+          ]
+        },
+        {
+          "id": "m2_3",
+          "teamAPlayers": [
+            "p5",
+            "p6"
+          ],
+          "teamBPlayers": [
+            "p11",
+            "p12"
+          ]
+        }
+      ],
+      "teamResults": [],
+      "individualScores": [],
+      "winner": null,
+      "contests": []
+    },
+    {
+      "id": "r3",
+      "name": "Round 3",
+      "course": "",
+      "date": "",
+      "format": "foursomes",
+      "formatLabel": "Foursomes Match Play",
+      "matches": [
+        {
+          "id": "m3_1",
+          "teamAPlayers": [
+            "p1",
+            "p2"
+          ],
+          "teamBPlayers": [
+            "p7",
+            "p8"
+          ]
+        },
+        {
+          "id": "m3_2",
+          "teamAPlayers": [
+            "p3",
+            "p4"
+          ],
+          "teamBPlayers": [
+            "p9",
+            "p10"
+          ]
+        },
+        {
+          "id": "m3_3",
+          "teamAPlayers": [
+            "p5",
+            "p6"
+          ],
+          "teamBPlayers": [
+            "p11",
+            "p12"
+          ]
+        }
+      ],
+      "teamResults": [],
+      "individualScores": [],
+      "winner": null,
+      "contests": []
+    },
+    {
+      "id": "r4",
+      "name": "Round 4",
+      "course": "",
+      "date": "",
+      "format": "singles",
+      "formatLabel": "Singles Match Play",
+      "matches": [
+        {
+          "id": "m4_1",
+          "teamAPlayers": [
+            "p1",
+            "p2"
+          ],
+          "teamBPlayers": [
+            "p7",
+            "p8"
+          ]
+        },
+        {
+          "id": "m4_2",
+          "teamAPlayers": [
+            "p3",
+            "p4"
+          ],
+          "teamBPlayers": [
+            "p9",
+            "p10"
+          ]
+        },
+        {
+          "id": "m4_3",
+          "teamAPlayers": [
+            "p5",
+            "p6"
+          ],
+          "teamBPlayers": [
+            "p11",
+            "p12"
+          ]
+        }
+      ],
+      "teamResults": [],
+      "individualScores": [],
+      "winner": null,
+      "contests": []
+    }
+  ],
+  "settings": {
+    "pointsPerMember": 5
+  }
+}
