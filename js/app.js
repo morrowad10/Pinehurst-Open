@@ -689,7 +689,10 @@ function renderRound(roundId) {
           <div class="card-sub">${subText}</div>
           ${matchStatusHtml(r, m)}
           ${scorecardTableHtml(r, ids, "_m" + m.id)}
-          <button class="brass" style="margin-top:10px" data-action="saveFoursome" data-round="${r.id}" data-match="${m.id}">Save this foursome's scores</button>
+          <div style="display:flex; gap:10px; margin-top:10px">
+            <button class="brass" data-action="saveFoursome" data-round="${r.id}" data-match="${m.id}">Save this foursome's scores</button>
+            <button class="danger" data-action="clearFoursome" data-round="${r.id}" data-match="${m.id}">Clear this foursome's scores</button>
+          </div>
         </div>
       `;
     }).join("");
@@ -749,7 +752,10 @@ function renderRound(roundId) {
           </div>
         </div>
         <div class="sc-total">Total: <strong id="scTotal_${r.id}">0</strong></div>
-        <button class="brass" data-action="saveScorecard" data-round="${r.id}">Save my score</button>
+        <div style="display:flex; gap:10px">
+          <button class="brass" data-action="saveScorecard" data-round="${r.id}">Save my score</button>
+          <button class="danger" data-action="clearScorecard" data-round="${r.id}">Clear this player's score</button>
+        </div>
       </div>
     `;
   }
@@ -1096,6 +1102,7 @@ function renderAdminRound(r) {
       ${matchKindBlock}
 
       <div class="note" style="margin:10px 0">Scores are now entered directly on this round's page (open the round from the top tabs) rather than here in Admin \u2014 each player can enter their own hole-by-hole scorecard. Closest to the Pin is set at the top of that page too.</div>
+      <button class="danger small" data-action="clearRoundScores" data-round="${r.id}">Clear ALL scores for this round</button>
     </div>
   `;
 }
@@ -1308,6 +1315,13 @@ function handleAction(e) {
       r.winner = val === "" ? null : val;
       saveState(); render(); toast("Round winner saved");
     },
+    clearRoundScores() {
+      const rid = e.currentTarget.dataset.round;
+      const r = STATE.rounds.find(x => x.id === rid);
+      if (!confirm(`Clear ALL individual scores for ${r.name}? This can't be undone.`)) return;
+      r.individualScores = [];
+      saveState(); render(); toast("All scores cleared for this round");
+    },
     saveScorecard() {
       const rid = e.currentTarget.dataset.round;
       const r = STATE.rounds.find(x => x.id === rid);
@@ -1327,6 +1341,14 @@ function handleAction(e) {
       if (idx >= 0) r.individualScores[idx] = entry; else r.individualScores.push(entry);
       saveState(); render(); toast("Score saved");
     },
+    clearScorecard() {
+      const rid = e.currentTarget.dataset.round;
+      const r = STATE.rounds.find(x => x.id === rid);
+      const playerId = document.getElementById(`scPlayer_${rid}`).value;
+      if (!playerId) { toast("Pick a name first"); return; }
+      r.individualScores = (r.individualScores || []).filter(s => s.playerId !== playerId);
+      saveState(); render(); toast("Score cleared");
+    },
     saveFoursome() {
       const rid = e.currentTarget.dataset.round;
       const matchId = e.currentTarget.dataset.match;
@@ -1343,14 +1365,29 @@ function handleAction(e) {
         holeInputs.forEach(inp => { holes[Number(inp.dataset.hole)] = inp.value === "" ? "" : Number(inp.value); });
         const stbfInput = document.querySelector(`.tc-stbf[data-stbf-round="${roundKey}"][data-stbf-player="${playerId}"]`);
         const stableford = stbfInput && stbfInput.value !== "" ? Number(stbfInput.value) : "";
-        if (holesEnteredCount(holes) === 0 && stableford === "") return;
+        const existingIdx = r.individualScores.findIndex(s => s.playerId === playerId);
+        if (holesEnteredCount(holes) === 0 && stableford === "") {
+          // Blank scorecard for this player: clear any previously saved entry
+          // instead of silently leaving old data in place.
+          if (existingIdx >= 0) { r.individualScores.splice(existingIdx, 1); savedAny = true; }
+          return;
+        }
         savedAny = true;
-        const idx = r.individualScores.findIndex(s => s.playerId === playerId);
         const entry = { playerId, holes, stableford };
-        if (idx >= 0) r.individualScores[idx] = entry; else r.individualScores.push(entry);
+        if (existingIdx >= 0) r.individualScores[existingIdx] = entry; else r.individualScores.push(entry);
       });
       if (!savedAny) { toast("Enter at least one score first"); return; }
       saveState(); render(); toast("Foursome scores saved");
+    },
+    clearFoursome() {
+      const rid = e.currentTarget.dataset.round;
+      const matchId = e.currentTarget.dataset.match;
+      const r = STATE.rounds.find(x => x.id === rid);
+      const m = (r.matches || []).find(x => x.id === matchId);
+      if (!m) return;
+      const ids = [...m.teamAPlayers, ...m.teamBPlayers];
+      r.individualScores = (r.individualScores || []).filter(s => !ids.includes(s.playerId));
+      saveState(); render(); toast("Foursome scores cleared");
     },
     exportJson() {
       const blob = new Blob([JSON.stringify(STATE, null, 2)], { type: "application/json" });
