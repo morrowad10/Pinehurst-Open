@@ -10,7 +10,7 @@ const LS_KEY = "golfTripState_v1";
    Web App here (Admin will also let you paste/save it directly, which is
    easier than editing this file — see SETUP_GOOGLE_SHEET.md). Whichever one
    is set most recently (Admin vs. this file) wins. */
-const SHEET_API_URL_DEFAULT = "";
+const SHEET_API_URL_DEFAULT = "https://script.google.com/macros/s/AKfycbzkPdRQTouqBy3Ba6ZZiUzNSjE01aG5_zmSfBVHv96xgRuFZdFFJhYL7Qq0KK6p_-SP/exec";
 
 function getApiUrl() {
   return localStorage.getItem("golfTripApiUrl") || SHEET_API_URL_DEFAULT || "";
